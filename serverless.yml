@@ -14,6 +14,11 @@ resources:
         WebsiteConfiguration:
           IndexDocument: index.html
 
+  Outputs:
+    BFBucket:
+      Value:
+        Ref: BFBucket # outputs the S3 ARN for use in other stacks
+
 package:
   exclude:
     - node_modules/serverless/**
