@@ -10,16 +10,31 @@ resources:
     BFBucket:
       Type: AWS::S3::Bucket
       Properties:
+        # FIXME remove the BucketName line
+        BucketName: ${env:BF_BUCKET_NAME}-${opt:stage}
         AccessControl: PublicRead
         WebsiteConfiguration:
           IndexDocument: index.html
+    BFBucketPolicy:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        Bucket:
+          Ref: BFBucket
+        PolicyDocument:
+          Statement:
+            - Effect: Allow
+              Principal: '*'
+              Action:
+              - s3:GetObject
+              # FIXME somehow automagically refer to the S3 bucket created earlier
+              Resource: arn:aws:s3:::${env:BF_BUCKET_NAME}-${opt:stage}/*
 
   Outputs:
     BFBucket:
       Value:
         Ref: BFBucket # outputs the bucket name
       Export:
-        Name: BFBucket # for use by other stacks
+        Name: BFBucket # for use in other stacks
 
 package:
   exclude:
