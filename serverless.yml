@@ -1,6 +1,6 @@
 service: bf-bucket
 
-frameworkVersion: ">=1.2.0 <2.0.0"
+frameworkVersion: '>=1.2.0 <2.0.0'
 
 provider:
   name: aws
@@ -17,7 +17,9 @@ resources:
   Outputs:
     BFBucket:
       Value:
-        Ref: BFBucket # outputs the S3 ARN for use in other stacks
+        Ref: BFBucket # outputs the bucket name
+      Export:
+        Name: BFBucket # for use by other stacks
 
 package:
   exclude:
